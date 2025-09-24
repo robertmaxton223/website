@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>জ্ঞান ভাণ্ডার - আপনার কন্টেন্ট প্ল্যাটফর্ম</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --header-bg: #000000;
+            --header-top: #FF0000;
+            --text-light: #FFFFFF;
+            --text-dark: #333333;
+            --accent: #FF0000;
+            --gray: #6C757D;
+            --light-bg: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* হেডার স্টাইল */
+        .header-top {
+            background-color: var(--header-top);
+            color: var(--text-light);
+            padding: 5px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--header-top);
+        }
+
+        /* হ্যামবার্গার মেনু */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: var(--text-light);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a i {
+            margin-right: 5px;
+        }
+
+        nav ul li a:hover {
+            color: var(--header-top);
+        }
+
+        /* মোবাইল মেনু */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg);
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-menu ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu ul li a:hover {
+            color: var(--header-top);
+        }
+
+        /* কন্টেন্ট এরিয়া */
+        .content-area {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--header-bg);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* কন্টেন্ট গ্রিড */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .content-details {
+            padding: 20px;
+        }
+
+        .content-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--header-bg);
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .content-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .view-btn {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .download-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* লগইন ফর্ম */
+        .login-form {
+            max-width: 400px;
+            margin: 50px auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--header-bg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #cc0000;
+        }
+
+        .error-message {
+            color: var(--accent);
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* এডমিন প্যানেল */
+        .admin-panel {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .admin-tab.active {
+            border-bottom: 3px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .upload-form {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .upload-form h3 {
+            margin-bottom: 15px;
+            color: var(--header-bg);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .media-insert {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .media-btn {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .media-btn i {
+            margin-right: 5px;
+        }
+
+        .content-list {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .content-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .content-item:last-child {
+            border-bottom: none;
+        }
+
+        .content-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .content-actions-admin {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* ফুটার */
+        footer {
+            background: var(--header-bg);
+            color: var(--text-light);
+            padding: 50px 0 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        /* রেস্পন্সিভ ডিজাইন */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .header-content {
+                padding: 10px 0;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+
+            .admin-tab {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- হেডার টপ বার -->
+    <div class="header-top">
+        জ্ঞান ভাণ্ডার - আপনার কন্টেন্ট প্ল্যাটফর্ম
+    </div>
+
+    <!-- হেডার -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">জ্ঞান<span>ভাণ্ডার</span></a>
+                
+                <!-- ডেস্কটপ মেনু -->
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
+                        <li><a href="#" data-content="video"><i class="fas fa-video"></i> ভিডিও</a></li>
+                        <li><a href="#" data-content="audio"><i class="fas fa-music"></i> অডিও</a></li>
+                        <li><a href="#" data-content="article"><i class="fas fa-file-alt"></i> আর্টিকেল</a></li>
+                        <li><a href="#" id="admin-link"><i class="fas fa-user-cog"></i> এডমিন প্যানেল</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- মোবাইল মেনু টগল -->
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- মোবাইল মেনু -->
+        <div class="mobile-menu" id="mobile-menu">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
+                <li><a href="#" data-content="video"><i class="fas fa-video"></i> ভিডিও</a></li>
+                <li><a href="#" data-content="audio"><i class="fas fa-music"></i> অডিও</a></li>
+                <li><a href="#" data-content="article"><i class="fas fa-file-alt"></i> আর্টিকেল</a></li>
+                <li><a href="#" id="admin-link-mobile"><i class="fas fa-user-cog"></i> এডমিন প্যানেল</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- কন্টেন্ট এরিয়া -->
+    <div class="content-area">
+        <div class="container">
+            <!-- হোম কন্টেন্ট -->
+            <div id="home-content" class="content-section active">
+                <div class="section-title">
+                    <h2>সাম্প্রতিক কন্টেন্ট</h2>
+                </div>
+                
+                <div class="content-grid" id="content-display">
+                    <!-- কন্টেন্ট কার্ডগুলি এখানে লোড হবে -->
+                </div>
+            </div>
+            
+            <!-- লগইন ফর্ম -->
+            <div id="login-form" class="login-form" style="display: none;">
+                <h2>এডমিন লগইন</h2>
+                <form id="admin-login">
+                    <div class="form-group">
+                        <label for="username">ইউজারনেম</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">পাসওয়ার্ড</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">লগইন</button>
+                    <div class="error-message" id="login-error">ইউজারনেম বা পাসওয়ার্ড ভুল!</div>
+                </form>
+            </div>
+            
+            <!-- এডমিন প্যানেল -->
+            <div id="admin-panel" class="admin-panel">
+                <div class="admin-header">
+                    <h2>এডমিন প্যানেল</h2>
+                    <button id="logout-btn" class="submit-btn" style="width: auto; padding: 8px 15px;">লগআউট</button>
+                </div>
+                
+                <div class="admin-tabs">
+                    <div class="admin-tab active" data-tab="upload">কন্টেন্ট আপলোড</div>
+                    <div class="admin-tab" data-tab="manage">কন্টেন্ট ম্যানেজ</div>
+                </div>
+                
+                <!-- আপলোড ট্যাব -->
+                <div id="upload-tab" class="admin-content active">
+                    <div class="upload-form">
+                        <h3>নতুন কন্টেন্ট আপলোড</h3>
+                        <form id="content-upload">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="content-type">কন্টেন্ট টাইপ</label>
+                                    <select id="content-type" required>
+                                        <option value="">সিলেক্ট করুন</option>
+                                        <option value="video">ভিডিও</option>
+                                        <option value="audio">অডিও</option>
+                                        <option value="article">আর্টিকেল</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content-title">শিরোনাম</label>
+                                    <input type="text" id="content-title" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="content-description">বর্ণনা</label>
+                                <textarea id="content-description" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="content-file">ফাইল আপলোড</label>
+                                <input type="file" id="content-file" required>
+                            </div>
+                            
+                            <!-- আর্টিকেল এডিটর (শুধুমাত্র আর্টিকেল টাইপের জন্য) -->
+                            <div id="article-editor" style="display: none;">
+                                <div class="form-group">
+                                    <label>আর্টিকেল কন্টেন্ট</label>
+                                    <textarea id="article-content" placeholder="আপনার আর্টিকেল এখানে লিখুন..."></textarea>
+                                </div>
+                                
+                                <div class="media-insert">
+                                    <div class="media-btn" id="insert-image">
+                                        <i class="fas fa-image"></i> ছবি যোগ করুন
+                                    </div>
+                                    <div class="media-btn" id="insert-audio">
+                                        <i class="fas fa-music"></i> অডিও যোগ করুন
+                                    </div>
+                                    <div class="media-btn" id="insert-video">
+                                        <i class="fas fa-video"></i> ভিডিও যোগ করুন
+                                    </div>
+                                    <div class="media-btn" id="insert-file">
+                                        <i class="fas fa-file"></i> ফাইল যোগ করুন
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">আপলোড করুন</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- ম্যানেজ ট্যাব -->
+                <div id="manage-tab" class="admin-content">
+                    <div class="content-list">
+                        <h3>কন্টেন্ট ম্যানেজমেন্ট</h3>
+                        <div id="content-list">
+                            <!-- কন্টেন্ট আইটেমগুলি এখানে লোড হবে -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ফুটার -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>জ্ঞান ভাণ্ডার</h3>
+                    <p>বিভিন্ন বিষয়ের উপর গুণগত আর্টিকেল, ভিডিও ও অডিও কন্টেন্টের এক বিশাল সংগ্রহশালা। জ্ঞান ভাণ্ডারে আপনাকে স্বাগতম।</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>দ্রুত লিংক</h3>
+                    <ul>
+                        <li><a href="#">হোম</a></li>
+                        <li><a href="#" data-content="video">ভিডিও</a></li>
+                        <li><a href="#" data-content="audio">অডিও</a></li>
+                        <li><a href="#" data-content="article">আর্টিকেল</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>ক্যাটেগরি</h3>
+                    <ul>
+                        <li><a href="#">শিক্ষামূলক</a></li>
+                        <li><a href="#">প্রযুক্তি</a></li>
+                        <li><a href="#">স্বাস্থ্য</a></li>
+                        <li><a href="#">মুক্তিযুদ্ধ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>যোগাযোগ</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</li>
+                        <li><i class="fas fa-phone"></i> +৮৮০ ১৭XX-XXXXXX</li>
+                        <li><i class="fas fa-envelope"></i> info@jnanabhandar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; ২০২৩ জ্ঞান ভাণ্ডার - সকল অধিকার সংরক্ষিত</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ডেটা স্টোরেজ (লোকালস্টোরেজ ব্যবহার করে)
+        let contents = JSON.parse(localStorage.getItem('contents')) || [];
+        
+        // DOM এলিমেন্টস
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const contentDisplay = document.getElementById('content-display');
+        const homeContent = document.getElementById('home-content');
+        const loginForm = document.getElementById('login-form');
+        const adminPanel = document.getElementById('admin-panel');
+        const adminLoginForm = document.getElementById('admin-login');
+        const loginError = document.getElementById('login-error');
+        const logoutBtn = document.getElementById('logout-btn');
+        const contentUploadForm = document.getElementById('content-upload');
+        const contentTypeSelect = document.getElementById('content-type');
+        const articleEditor = document.getElementById('article-editor');
+        const contentList = document.getElementById('content-list');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const adminContents = document.querySelectorAll('.admin-content');
+        
+        // মোবাইল মেনু টগল
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // কন্টেন্ট টাইপ পরিবর্তন
+        contentTypeSelect.addEventListener('change', function() {
+            if (this.value === 'article') {
+                articleEditor.style.display = 'block';
+            } else {
+                articleEditor.style.display = 'none';
+            }
+        });
+        
+        // মিডিয়া ইনসার্ট বাটন
+        document.getElementById('insert-image').addEventListener('click', function() {
+            insertMediaAtCursor('[ছবি: ', ']');
+        });
+        
+        document.getElementById('insert-audio').addEventListener('click', function() {
+            insertMediaAtCursor('[অডিও: ', ']');
+        });
+        
+        document.getElementById('insert-video').addEventListener('click', function() {
+            insertMediaAtCursor('[ভিডিও: ', ']');
+        });
+        
+        document.getElementById('insert-file').addEventListener('click', function() {
+            insertMediaAtCursor('[ফাইল: ', ']');
+        });
+        
+        function insertMediaAtCursor(before, after) {
+            const textarea = document.getElementById('article-content');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const beforeText = text.substring(0, start);
+            const afterText = text.substring(end, text.length);
+            
+            textarea.value = beforeText + before + after + afterText;
+            textarea.focus();
+            textarea.selectionStart = textarea.selectionEnd = start + before.length;
+        }
+        
+        // নেভিগেশন লিংক ক্লিক
+        document.querySelectorAll('a[data-content]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const contentType = this.getAttribute('data-content');
+                showContent(contentType);
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+        
+        // এডমিন লিংক ক্লিক
+        document.getElementById('admin-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoginForm();
+        });
+        
+        document.getElementById('admin-link-mobile').addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoginForm();
+            if (mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+        
+        // এডমিন ট্যাব ক্লিক
+        adminTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                adminTabs.forEach(t => t.classList.remove('active'));
+                adminContents.forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+                
+                if (tabId === 'manage') {
+                    loadContentList();
+                }
+            });
+        });
+        
+        // এডমিন লগইন
+        adminLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'ashraful' && password === '152007') {
+                showAdminPanel();
+            } else {
+                loginError.style.display = 'block';
+                setTimeout(() => {
+                    loginError.style.display = 'none';
+                }, 3000);
+            }
+        });
+        
+        // লগআউট
+        logoutBtn.addEventListener('click', function() {
+            showHomeContent();
+        });
+        
+        // কন্টেন্ট আপলোড
+        contentUploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const type = document.getElementById('content-type').value;
+            const title = document.getElementById('content-title').value;
+            const description = document.getElementById('content-description').value;
+            const fileInput = document.getElementById('content-file');
+            const file = fileInput.files[0];
+            
+            let content = '';
+            if (type === 'article') {
+                content = document.getElementById('article-content').value;
+            }
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newContent = {
+                        id: Date.now(),
+                        type: type,
+                        title: title,
+                        description: description,
+                        content: content,
+                        file: {
+                            name: file.name,
+                            data: e.target.result,
+                            type: file.type
+                        },
+                        date: new Date().toLocaleDateString('bn-BD')
+                    };
+                    
+                    contents.push(newContent);
+                    localStorage.setItem('contents', JSON.stringify(contents));
+                    
+                    alert('কন্টেন্ট সফলভাবে আপলোড হয়েছে!');
+                    contentUploadForm.reset();
+                    articleEditor.style.display = 'none';
+                    
+                    // ম্যানেজ ট্যাবে স্যুইচ করুন
+                    adminTabs.forEach(t => t.classList.remove('active'));
+                    adminContents.forEach(c => c.classList.remove('active'));
+                    
+                    document.querySelector('.admin-tab[data-tab="manage"]').classList.add('active');
+                    document.getElementById('manage-tab').classList.add('active');
+                    
+                    loadContentList();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // কন্টেন্ট দেখান
+        function showContent(type) {
+            homeContent.classList.add('active');
+            loginForm.style.display = 'none';
+            adminPanel.style.display = 'none';
+            
+            const filteredContents = contents.filter(content => content.type === type);
+            displayContents(filteredContents, type);
+        }
+        
+        // হোম কন্টেন্ট দেখান
+        function showHomeContent() {
+            homeContent.classList.add('active');
+            loginForm.style.display = 'none';
+            adminPanel.style.display = 'none';
+            displayContents(contents, 'সকল');
+        }
+        
+        // লগইন ফর্ম দেখান
+        function showLoginForm() {
+            homeContent.classList.remove('active');
+            loginForm.style.display = 'block';
+            adminPanel.style.display = 'none';
+        }
+        
+        // এডমিন প্যানেল দেখান
+        function showAdminPanel() {
+            homeContent.classList.remove('active');
+            loginForm.style.display = 'none';
+            adminPanel.style.display = 'block';
+        }
+        
+        // কন্টেন্ট ডিসপ্লে
+        function displayContents(contentsArray, type) {
+            contentDisplay.innerHTML = '';
+            
+            if (contentsArray.length === 0) {
+                contentDisplay.innerHTML = `<p style="text-align: center; grid-column: 1/-1; padding: 40px;">${type} কন্টেন্ট পাওয়া যায়নি</p>`;
+                return;
+            }
+            
+            contentsArray.forEach(content => {
+                const card = document.createElement('div');
+                card.className = 'content-card';
+                
+                // ইমেজ জেনারেট করুন কন্টেন্ট টাইপ অনুযায়ী
+                let imageUrl = '';
+                if (content.type === 'video') {
+                    imageUrl = 'https://images.unsplash.com/photo-1559703243-9094e138a8a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                } else if (content.type === 'audio') {
+                    imageUrl = 'https://images.unsplash.com/photo-1571974599782-87624638275f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                } else {
+                    imageUrl = 'https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                }
+                
+                card.innerHTML = `
+                    <div class="content-image" style="background-image: url('${imageUrl}')"></div>
+                    <div class="content-details">
+                        <h3>${content.title}</h3>
+                        <div class="content-meta">
+                            <span><i class="far fa-calendar"></i> ${content.date}</span>
+                            <span><i class="fas fa-${content.type === 'video' ? 'video' : content.type === 'audio' ? 'music' : 'file-alt'}"></i> ${content.type === 'video' ? 'ভিডিও' : content.type === 'audio' ? 'অডিও' : 'আর্টিকেল'}</span>
+                        </div>
+                        <p>${content.description}</p>
+                        <div class="content-actions">
+                            <a href="#" class="view-btn" data-id="${content.id}">দেখুন</a>
+                            <button class="download-btn" data-id="${content.id}"><i class="fas fa-download"></i> ডাউনলোড</button>
+                        </div>
+                    </div>
+                `;
+                
+                contentDisplay.appendChild(card);
+            });
+            
+            // ডাউনলোড বাটন ইভেন্ট যোগ করুন
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const contentId = parseInt(this.getAttribute('data-id'));
+                    downloadContent(contentId);
+                });
+            });
+        }
+        
+        // কন্টেন্ট ডাউনলোড
+        function downloadContent(id) {
+            const content = contents.find(c => c.id === id);
+            if (content && content.file) {
+                const a = document.createElement('a');
+                a.href = content.file.data;
+                a.download = content.file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+        
+        // কন্টেন্ট লিস্ট লোড (এডমিন প্যানেলের জন্য)
+        function loadContentList() {
+            contentList.innerHTML = '';
+            
+            if (contents.length === 0) {
+                contentList.innerHTML = '<p>কোন কন্টেন্ট পাওয়া যায়নি</p>';
+                return;
+            }
+            
+            contents.forEach(content => {
+                const item = document.createElement('div');
+                item.className = 'content-item';
+                item.innerHTML = `
+                    <div class="content-info">
+                        <h4>${content.title}</h4>
+                        <p>টাইপ: ${content.type === 'video' ? 'ভিডিও' : content.type === 'audio' ? 'অডিও' : 'আর্টিকেল'} | তারিখ: ${content.date}</p>
+                    </div>
+                    <div class="content-actions-admin">
+                        <button class="delete-btn" data-id="${content.id}"><i class="fas fa-trash"></i> ডিলিট</button>
+                    </div>
+                `;
+                
+                contentList.appendChild(item);
+            });
+            
+            // ডিলিট বাটন ইভেন্ট যোগ করুন
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const contentId = parseInt(this.getAttribute('data-id'));
+                    deleteContent(contentId);
+                });
+            });
+        }
+        
+        // কন্টেন্ট ডিলিট
+        function deleteContent(id) {
+            if (confirm('আপনি কি এই কন্টেন্ট ডিলিট করতে চান?')) {
+                contents = contents.filter(c => c.id !== id);
+                localStorage.setItem('contents', JSON.stringify(contents));
+                loadContentList();
+                
+                // হোমপেজেও আপডেট করুন
+                displayContents(contents, 'সকল');
+            }
+        }
+        
+        // প্রাথমিক কন্টেন্ট লোড
+        showHomeContent();
+        displayContents(contents, 'সকল');
+    </script>
+</body>
+</html>
