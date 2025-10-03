@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আপনার ওয়েবসাইটের নাম</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* হেডার স্টাইল */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        /* হিরো সেকশন */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://via.placeholder.com/1200x600') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        /* কন্টেন্ট সেকশন */
+        .content-section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        /* ফুটার */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* রেস্পন্সিভ ডিজাইন */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- হেডার সেকশন -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">আপনার লোগো</div>
+            <nav>
+                <ul>
+                    <li><a href="#">হোম</a></li>
+                    <li><a href="#">আমাদের সম্পর্কে</a></li>
+                    <li><a href="#">সেবাসমূহ</a></li>
+                    <li><a href="#">পোর্টফোলিও</a></li>
+                    <li><a href="#">যোগাযোগ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- হিরো সেকশন -->
+    <section class="hero">
+        <div class="container">
+            <h1>আপনার ওয়েবসাইটে স্বাগতম</h1>
+            <p>এটি একটি উদাহরণ ওয়েবসাইট যা সম্পূর্ণরূপে HTML এবং CSS দিয়ে তৈরি করা হয়েছে। আপনি এটি আপনার প্রয়োজন অনুযায়ী পরিবর্তন করতে পারেন।</p>
+            <a href="#" class="btn">আরও জানুন</a>
+        </div>
+    </section>
+
+    <!-- কন্টেন্ট সেকশন -->
+    <section class="content-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>আমাদের সেবাসমূহ</h2>
+                <p>আমরা বিভিন্ন ধরনের সেবা প্রদান করে থাকি</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>ওয়েব ডেভেলপমেন্ট</h3>
+                    <p>আমরা আধুনিক ও রেস্পন্সিভ ওয়েবসাইট তৈরি করি যা সকল ডিভাইসে সঠিকভাবে কাজ করে।</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>মোবাইল অ্যাপ ডেভেলপমেন্ট</h3>
+                    <p>আইওএস এবং অ্যান্ড্রয়েডের জন্য উচ্চমানের মোবাইল অ্যাপ্লিকেশন তৈরি করি।</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>গ্রাফিক ডিজাইন</h3>
+                    <p>লোগো, ব্র্যান্ডিং এবং অন্যান্য গ্রাফিক ডিজাইন সেবা প্রদান করি।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>আমাদের সম্পর্কে</h3>
+                    <p>আমরা একটি প্রফেশনাল ওয়েব ডেভেলপমেন্ট কোম্পানি যারা উচ্চমানের ওয়েবসাইট তৈরি করে থাকি।</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>দ্রুত লিংক</h3>
+                    <ul>
+                        <li><a href="#">হোম</a></li>
+                        <li><a href="#">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#">সেবাসমূহ</a></li>
+                        <li><a href="#">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>যোগাযোগ</h3>
+                    <ul>
+                        <li>ইমেইল: info@example.com</li>
+                        <li>ফোন: +৮৮০ ১XXX-XXXXXX</li>
+                        <li>ঠিকানা: আপনার ঠিকানা, শহর, দেশ</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; ২০২৩ আপনার কোম্পানির নাম। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
