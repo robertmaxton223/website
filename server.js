@@ -1,5 +1,6 @@
 /**
- * server.js (updated - safer lowdb init + await before listen)
+ * server.js
+ * Fix: pass default data to Low(adapter, defaultData) to avoid "lowdb: missing default data"
  */
 const express = require('express');
 const path = require('path');
@@ -20,42 +21,42 @@ const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
-// LowDB setup
+// Default DB structure (pass this into Low constructor)
+const DEFAULT_DB = {
+  posts: [],
+  videos: [],
+  photos: [],
+  visitors: [],
+  admin: { email: 'asadul43255@gmail.com', password: '2344329040@a' }
+};
+
+// LowDB setup - pass default data as second argument to avoid "missing default data"
 const adapter = new JSONFile(path.join(DATA_DIR, 'db.json'));
-const db = new Low(adapter);
+const db = new Low(adapter, DEFAULT_DB);
 
 // safer init function
 async function initDB() {
   try {
-    // Try reading existing DB (may throw if file malformed)
+    // read existing DB (if file exists and is valid)
     await db.read();
   } catch (readErr) {
     console.error('lowdb read error (will re-initialize):', readErr && readErr.message ? readErr.message : readErr);
-    // if read fails (corrupted file etc.), ensure db.data has a fallback object
-    db.data = {};
+    // fallback to default object (db already has DEFAULT_DB from constructor, but ensure)
+    db.data = db.data || DEFAULT_DB;
   }
 
-  // Ensure default structure
-  db.data = db.data || {
-    posts: [],
-    videos: [],
-    photos: [],
-    visitors: [],
-    admin: { email: 'asadul43255@gmail.com', password: '2344329040@a' }
-  };
-
-  // Sanity: keep visitors length bounded to avoid huge db.json
+  // Ensure default structure (in case file was empty or partial)
+  db.data = db.data || DEFAULT_DB;
   if (!Array.isArray(db.data.visitors)) db.data.visitors = [];
 
   try {
     await db.write();
   } catch (writeErr) {
     console.error('lowdb write error during init:', writeErr && writeErr.message ? writeErr.message : writeErr);
-    // If write keeps failing, still continue but warn
   }
 }
 
-// Multer
+// Multer (for uploads)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOADS_DIR),
   filename: (req, file, cb) => {
@@ -84,12 +85,10 @@ app.use(async (req, res, next) => {
     await db.read();
     if (!Array.isArray(db.data.visitors)) db.data.visitors = [];
     db.data.visitors.push({ ip, path: req.path, time: new Date().toISOString() });
-    // keep visitor array bounded
     if (db.data.visitors.length > 5000) db.data.visitors.shift();
     await db.write();
   } catch (err) {
     console.error('Visitor logging failed:', err && err.message ? err.message : err);
-    // Don't block the request on logging failure
   }
   next();
 });
@@ -99,7 +98,7 @@ function requireAuth(req, res, next) {
   res.redirect('/admin/login');
 }
 
-// Routes (same as before)
+// Routes
 app.get('/', async (req, res) => {
   await db.read();
   const videos = (db.data.videos || []).slice().reverse().filter(v => v.visible !== false);
@@ -265,7 +264,6 @@ initDB().then(() => {
   });
 }).catch(err => {
   console.error('Failed to initialize DB, starting server anyway with empty DB:', err && err.message ? err.message : err);
-  // still try to start server to inspect logs
   app.listen(PORT, () => {
     console.log(`Server running on ${PORT}, data dir ${DATA_DIR}`);
   });
