@@ -1,0 +1,17 @@
+<% layout('layout') -%>
+<section class="section">
+  <h2>All Photos</h2>
+  <div class="grid media-grid">
+    <% photos.forEach(function(p){ %>
+      <div class="card">
+        <div class="card-media">
+          <% const m = p.media && (p.media.find(x=>x.type==='file') || p.media.find(x=>x.type==='link')); %>
+          <% if (m){ %>
+            <img src="<%= (m.type==='file'? m.path : m.url) %>" alt="<%= p.title %>" />
+          <% } %>
+        </div>
+        <div class="card-body"><strong><%= p.title %></strong></div>
+      </div>
+    <% }) %>
+  </div>
+</section>
