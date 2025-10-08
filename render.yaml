@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: robert-maxton-site
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: DATA_DIR
+        value: "/data"
+    disk:
+      name: uploads-disk
+      mountPath: /data
+      sizeGb: 0.5
