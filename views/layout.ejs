@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <title><%= title || 'Robert Maxton' %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/public/styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="logo">HackerLogo</div>
+      <div class="owner">Robert Maxton</div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="left">
+        <button id="hamburger" class="hamburger">☰</button>
+        <nav id="main-nav" class="nav">
+          <a href="/">Home Page</a>
+          <a href="/blog">Blog Post</a>
+          <a href="/videos">Videos</a>
+          <a href="/photos">Photo</a>
+          <a href="/admin/login">Admin Panel</a>
+        </nav>
+      </div>
+      <div class="right">
+        <input id="search" class="search" placeholder="Search..." />
+      </div>
+    </div>
+    <nav id="drawer" class="drawer"></nav>
+  </header>
+
+  <main class="container main-content">
+    <%- body %>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="copyright">
+        © 2024 Robert Maxton. All Rights Reserved.
+      </div>
+      <div class="quicklinks">
+        <a href="/">Home</a>
+        <a href="/about">About Us</a>
+        <a href="/services">Services</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="/public/script.js"></script>
+</body>
+</html>
