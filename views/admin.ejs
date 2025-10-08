@@ -1,0 +1,107 @@
+<% layout('layout') -%>
+<section class="admin-section">
+  <h2>Admin Dashboard</h2>
+
+  <div class="admin-grid">
+    <div class="admin-card">
+      <h3>Create Blog Post</h3>
+      <form action="/admin/post/blog" method="POST" enctype="multipart/form-data">
+        <label>Title</label>
+        <input name="title" required />
+        <label>Content (HTML allowed for bold/underline/color)</label>
+        <textarea name="content" rows="6"></textarea>
+        <label>Upload media</label>
+        <input type="file" name="mediaFiles" multiple />
+        <label>Or media links (one per line)</label>
+        <textarea name="mediaLinks"></textarea>
+        <button class="btn" type="submit">Post</button>
+      </form>
+    </div>
+
+    <div class="admin-card">
+      <h3>Create Video</h3>
+      <form action="/admin/post/video" method="POST" enctype="multipart/form-data">
+        <label>Title</label>
+        <input name="title" required />
+        <label>Upload video</label>
+        <input type="file" name="videoFile" accept="video/*" />
+        <label>Or video link</label>
+        <input name="videoLink" />
+        <button class="btn" type="submit">Post Video</button>
+      </form>
+    </div>
+
+    <div class="admin-card">
+      <h3>Create Photo</h3>
+      <form action="/admin/post/photo" method="POST" enctype="multipart/form-data">
+        <label>Title</label>
+        <input name="title" required />
+        <label>Upload photo(s)</label>
+        <input type="file" name="photoFiles" accept="image/*" multiple />
+        <label>Or photo links (one per line)</label>
+        <textarea name="photoLinks"></textarea>
+        <button class="btn" type="submit">Post Photo</button>
+      </form>
+    </div>
+  </div>
+
+  <h3>Existing Content</h3>
+  <div class="manage-list">
+    <h4>Blog Posts</h4>
+    <% posts.forEach(function(p){ %>
+      <div class="manage-item">
+        <div><strong><%= p.title %></strong> - <%= p.created_at %></div>
+        <div class="manage-actions">
+          <form method="POST" action="/admin/item/post/<%= p.id %>/toggle" style="display:inline"><button class="btn">Toggle Visible</button></form>
+          <form method="POST" action="/admin/item/post/<%= p.id %>/delete" style="display:inline" onsubmit="return confirm('Delete?')"><button class="btn danger">Delete</button></form>
+        </div>
+      </div>
+    <% }) %>
+
+    <h4>Videos</h4>
+    <% videos.forEach(function(v){ %>
+      <div class="manage-item">
+        <div><strong><%= v.title %></strong> - <%= v.created_at %></div>
+        <div class="manage-actions">
+          <form method="POST" action="/admin/item/video/<%= v.id %>/toggle" style="display:inline"><button class="btn">Toggle Visible</button></form>
+          <form method="POST" action="/admin/item/video/<%= v.id %>/delete" style="display:inline" onsubmit="return confirm('Delete?')"><button class="btn danger">Delete</button></form>
+        </div>
+      </div>
+    <% }) %>
+
+    <h4>Photos</h4>
+    <% photos.forEach(function(p){ %>
+      <div class="manage-item">
+        <div><strong><%= p.title %></strong> - <%= p.created_at %></div>
+        <div class="manage-actions">
+          <form method="POST" action="/admin/item/photo/<%= p.id %>/toggle" style="display:inline"><button class="btn">Toggle Visible</button></form>
+          <form method="POST" action="/admin/item/photo/<%= p.id %>/delete" style="display:inline" onsubmit="return confirm('Delete?')"><button class="btn danger">Delete</button></form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <h3>Visitors</h3>
+  <form method="POST" action="/admin/visitors/clear"><button class="btn danger" onclick="return confirm('Clear all visitor records?')">Clear All</button></form>
+  <% visitors.forEach(function(v, idx){ %>
+    <div class="visitor-row">
+      <div><%= idx %> - <%= v.ip %> - <%= v.path %> - <%= v.time %></div>
+      <div>
+        <form method="POST" action="/admin/visitor/<%= idx %>/delete" style="display:inline"><button class="btn small">Delete</button></form>
+      </div>
+    </div>
+  <% }) %>
+
+  <h3>Admin Settings</h3>
+  <form method="POST" action="/admin/settings/credentials">
+    <label>Email</label>
+    <input name="email" value="<%= admin.email %>" />
+    <label>Password</label>
+    <input name="password" value="<%= admin.password %>" />
+    <button class="btn">Update Credentials</button>
+  </form>
+
+  <div style="margin-top:16px">
+    <a class="btn" href="/admin/logout">Logout</a>
+  </div>
+</section>
