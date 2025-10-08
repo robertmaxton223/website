@@ -1,0 +1,26 @@
+<% layout('layout') -%>
+<article class="post">
+  <h1><%= post.title %></h1>
+  <div class="post-media">
+    <% if (post.media && post.media.length){ post.media.forEach(function(m){ %>
+      <% if (m.type==='file'){ %>
+        <% if (m.path.endsWith('.mp4')){ %>
+          <video controls src="<%= m.path %>"></video>
+        <% } else { %>
+          <img src="<%= m.path %>" alt="" />
+        <% } %>
+      <% } else { %>
+        <% if (m.url.includes('youtube')){ %>
+          <iframe src="<%= m.url.replace('watch?v=','embed/') %>" frameborder="0" allowfullscreen></iframe>
+        <% } else if (m.url.endsWith('.mp4')){ %>
+          <video controls src="<%= m.url %>"></video>
+        <% } else { %>
+          <img src="<%= m.url %>" alt="" />
+        <% } %>
+      <% } %>
+    <% }) } %>
+  </div>
+  <div class="post-content">
+    <%- post.content %>
+  </div>
+</article>
